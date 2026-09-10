@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TeamDashboard } from '../../components/TeamDashboard';
+---
+
+<Layout title="Ruta de equipo | Día del Programador UCB">
+  <TeamDashboard client:only="react" />
+</Layout>

@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TVRouter } from '../../components/TVRouter';
+import type { PostaId } from '../../types/game';
+
+const { posta } = Astro.params;
+const parsedPosta = Number(posta);
+const initialPostaId = ([1, 2, 3, 4, 5].includes(parsedPosta) ? parsedPosta : 1) as PostaId;
+---
+
+<Layout title={`Posta ${initialPostaId} | Día del Programador UCB`}>
+  <TVRouter initialPostaId={initialPostaId} client:only="react" />
+</Layout>

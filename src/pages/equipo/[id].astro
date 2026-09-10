@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TeamDashboard } from '../../components/TeamDashboard';
+
+const { id } = Astro.params;
+---
+
+<Layout title={`Equipo ${id} | Día del Programador UCB`}>
+  <TeamDashboard initialId={id} client:only="react" />
+</Layout>

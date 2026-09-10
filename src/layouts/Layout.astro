@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Día del Programador | Ingeniería de Sistemas UCB',
+  description = 'Laboratorio presencial de juegos y retos de Ingeniería de Sistemas de la Universidad Católica Boliviana.'
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isCurrent = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#030810" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <ClientRouter />
+  </head>
+  <body class="app-shell">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="blueprint-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand-lockup" href="/" aria-label="Inicio del laboratorio de juegos de Sistemas UCB">
+          <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+          <span class="brand-copy">
+            <strong>SISTEMAS UCB</strong>
+            <span>LABORATORIO DE JUEGOS / 2026</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a class:list={['nav-link', 'nav-link--play', { 'nav-link--current': isCurrent('/tv') }]} href="/tv" aria-current={isCurrent('/tv') ? 'page' : undefined}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m8 5 11 7-11 7V5Z" /></svg>
+            Jugar
+          </a>
+          <a class:list={['nav-link', { 'nav-link--current': isCurrent('/equipo') }]} href="/equipo" aria-current={isCurrent('/equipo') ? 'page' : undefined}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+            Equipo
+          </a>
+          <span class="nav-divider" aria-hidden="true"></span>
+          <a class:list={['nav-link', 'nav-link--quiet', { 'nav-link--current': isCurrent('/moderador') }]} href="/moderador" aria-current={isCurrent('/moderador') ? 'page' : undefined}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 20 6v5c0 5.3-3.4 8.5-8 10-4.6-1.5-8-4.7-8-10V6l8-3Z" /><path d="m9 12 2 2 4-4" /></svg>
+            Operador
+          </a>
+          <a class:list={['nav-link', 'nav-link--final', { 'nav-link--current': isCurrent('/ruleta') }]} href="/ruleta" aria-current={isCurrent('/ruleta') ? 'page' : undefined}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 3v4M12 17v4M3 12h4M17 12h4M12 12l4-4" /></svg>
+            Final
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido" class="page-main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <span class="site-footer__brand">DÍA DEL PROGRAMADOR / UCB</span>
+        <span>Presencial · Ingeniería de Sistemas</span>
+        <span>2026</span>
+      </div>
+    </footer>
+  </body>
+</html>
